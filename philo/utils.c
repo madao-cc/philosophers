@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mikelitoris <mikelitoris@student.42.fr>    +#+  +:+       +#+        */
+/*   By: madao-da <madao-da@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:09:59 by mikelitoris       #+#    #+#             */
-/*   Updated: 2024/09/10 16:24:34 by mikelitoris      ###   ########.fr       */
+/*   Updated: 2024/09/21 15:33:40 by madao-da         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,15 @@ int	check_philo_died(t_philo *philo)
 {
 	if (philo->table->nbr_philos == 1)
 		return (0);
+	safe_mutex(&philo->mtx_last_meal_time, LOCK);
 	if (get_current_time() - philo->last_meal_time >= \
 	philo->table->time_to_die && check_philo_state(philo) != EATING)
 	{
 		set_philo_state(philo, DEAD);
+		safe_mutex(&philo->mtx_last_meal_time, UNLOCK);
 		return (1);
 	}
+	safe_mutex(&philo->mtx_last_meal_time, UNLOCK);
 	return (0);
 }
 

@@ -24,7 +24,7 @@ int	ft_printptr(unsigned long long n)
 	}
 	else
 	{
-		(STDERR_FILENO, "0x", 2);
+		write(STDERR_FILENO, "0x", 2);
 		size = 2;
 		nbr = ft_createptr(n);
 		ft_printstr(nbr);

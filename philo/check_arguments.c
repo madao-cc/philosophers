@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_arguments.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mikelitoris <mikelitoris@student.42.fr>    +#+  +:+       +#+        */
+/*   By: madao-da <madao-da@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:07:08 by mikelitoris       #+#    #+#             */
-/*   Updated: 2024/09/10 16:21:04 by mikelitoris      ###   ########.fr       */
+/*   Updated: 2024/09/21 15:04:15 by madao-da         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 void	ft_check_arguments(t_sim *table, char **argv)
 {
 	table->nbr_philos = ft_atol(argv[1]);
+	if (table->nbr_philos >= 250)
+		ft_error_exit("Error\n Number of \
+		philos must be < 250");
 	table->time_to_die = ft_atol(argv[2]);
 	table->time_to_eat = ft_atol(argv[3]);
 	table->time_to_sleep = ft_atol(argv[4]);

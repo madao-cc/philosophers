@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine_actions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mikelitoris <mikelitoris@student.42.fr>    +#+  +:+       +#+        */
+/*   By: madao-da <madao-da@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:09:39 by mikelitoris       #+#    #+#             */
-/*   Updated: 2024/09/10 16:19:51 by mikelitoris      ###   ########.fr       */
+/*   Updated: 2024/09/21 14:59:32 by madao-da         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	ft_eat(t_philo *philo)
 {
 	if (check_philo_state(philo) == DEAD)
 		return ;
+	get_last_meal_time(philo);
 	set_philo_state(philo, EATING);
 	print_message("is eating", philo);
 	ft_usleep(philo->table->time_to_eat);
@@ -40,7 +41,6 @@ void	ft_eat(t_philo *philo)
 	safe_mutex(&philo->mtx_meal_counter, LOCK);
 	philo->meal_counter++;
 	safe_mutex(&philo->mtx_meal_counter, UNLOCK);
-	get_last_meal_time(philo);
 }
 
 void	ft_pickup_forks(t_philo *philo)

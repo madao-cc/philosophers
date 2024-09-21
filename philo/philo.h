@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mikelitoris <mikelitoris@student.42.fr>    +#+  +:+       +#+        */
+/*   By: madao-da <madao-da@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:10:11 by mikelitoris       #+#    #+#             */
-/*   Updated: 2024/09/10 16:23:59 by mikelitoris      ###   ########.fr       */
+/*   Updated: 2024/09/21 15:51:09 by madao-da         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,8 @@ bool	is_philo_full(t_philo *philo);
 /* utils_pt2.c */
 void	print_message(char *str, t_philo *philo);
 void	get_last_meal_time(t_philo *philo);
+void	*ft_calloc(size_t count, size_t size);
+void	ft_bzero(void *s, size_t n);
 
 /* thread_utils.c */
 t_state	check_philo_state(t_philo *philo);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mikelitoris <mikelitoris@student.42.fr>    +#+  +:+       +#+        */
+/*   By: madao-da <madao-da@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:09:47 by mikelitoris       #+#    #+#             */
-/*   Updated: 2024/09/10 16:27:07 by mikelitoris      ###   ########.fr       */
+/*   Updated: 2024/09/21 15:55:19 by madao-da         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	*philo_routine(void *p_philo)
 	if (philo->table->nbr_philos == 1)
 		handle_1(philo);
 	if (philo->philo_id % 2 == 0)
-		ft_usleep(philo->table->time_to_eat / 2); //! Check if this is the right value
+		ft_usleep(philo->table->time_to_eat / 2);
 	while (check_philo_state(philo) != DEAD && \
 	check_table_ok(philo->table) == true)
 	{
@@ -92,6 +92,6 @@ void	*philo_routine(void *p_philo)
 void	handle_1(t_philo *philo)
 {
 	print_message("has taken a fork", philo);
-	printf("%zu %d is dead\n", philo->table->time_to_die, philo->philo_id);
+	printf("%zu %d died\n", philo->table->time_to_die, philo->philo_id);
 	set_philo_state(philo, DEAD);
 }

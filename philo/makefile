@@ -43,7 +43,7 @@ clean:
 	@make clean -C ./ft_printf
 
 fclean:		clean
-	rm -rf $(NAME)
+	rm -f $(NAME)
 	@rm $(FT_PRINTF)
 
 re:	fclean all

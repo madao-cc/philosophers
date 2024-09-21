@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mikelitoris <mikelitoris@student.42.fr>    +#+  +:+       +#+        */
+/*   By: madao-da <madao-da@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:07:19 by mikelitoris       #+#    #+#             */
-/*   Updated: 2024/09/10 16:07:20 by mikelitoris      ###   ########.fr       */
+/*   Updated: 2024/09/21 16:04:39 by madao-da         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	ft_init(t_sim *table)
 	table->threads = malloc(sizeof(pthread_t) * table->nbr_philos);
 	if (table->threads == NULL)
 		exit(EXIT_FAILURE);
-	table->philos = malloc(sizeof(t_philo) * table->nbr_philos);
+	table->philos = ft_calloc(sizeof(t_philo), sizeof(t_philo) \
+	* table->nbr_philos);
 	if (table->philos == NULL)
 	{
 		free(table->threads);
