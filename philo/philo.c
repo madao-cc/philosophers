@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mikelitoris <mikelitoris@student.42.fr>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/10 16:07:26 by mikelitoris       #+#    #+#             */
+/*   Updated: 2024/09/10 16:08:13 by mikelitoris      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 int	main(int argc, char **argv)
@@ -6,12 +18,12 @@ int	main(int argc, char **argv)
 
 	if (argc == 5 || argc == 6)
 	{
-		ft_check_arguments(&table, argv); //TODO: Translate the arguments and check if they are valid
-		ft_init(&table); //TODO: Initialize the structures.
-		if (ft_create_threads(&table) == 1) // This means that something went wrong while creating the threads
-			ft_nuke_all(&table); //! Check if this is the right way to handle this
-		if (ft_joint_threads(&table) == 1) // This means that something went wrong while joining the threads
-			ft_nuke_all(&table); //! Check if this is the right way to handle this
+		ft_check_arguments(&table, argv);
+		ft_init(&table);
+		if (ft_create_threads(&table) == 1)
+			ft_nuke_all(&table);
+		if (ft_joint_threads(&table) == 1)
+			ft_nuke_all(&table);
 		ft_nuke_all(&table);
 		return (0);
 	}

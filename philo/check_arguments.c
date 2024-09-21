@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_arguments.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mikelitoris <mikelitoris@student.42.fr>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/10 16:07:08 by mikelitoris       #+#    #+#             */
+/*   Updated: 2024/09/10 16:21:04 by mikelitoris      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 void	ft_check_arguments(t_sim *table, char **argv)
@@ -15,7 +27,7 @@ void	ft_check_arguments(t_sim *table, char **argv)
 long	ft_atol(char *str)
 {
 	long	result;
-	int	i;
+	int		i;
 
 	i = 0;
 	result = 0;
@@ -24,13 +36,14 @@ long	ft_atol(char *str)
 	if (str[i] == '+')
 		i++;
 	else if (str[i] == '-')
-		ft_error_exit("Error\n All parameters must not be negative.\n");
+		ft_error_exit("Error\n The arguments need to be +\n");
 	if (ft_is_digit(str[i]) == 0)
-		ft_error_exit("Error\n The argument is not a valid digit.\n");
+		ft_error_exit("Error\n The arguments need to be numbers\n");
 	while (ft_is_digit(str[i]) == 1)
 		result = (result * 10) + (str[i++] - '0');
 	if (result > INT_MAX)
-		ft_error_exit("The maximum value accepted is 2147483647. Sorry for the inconvenience.\n");
+		ft_error_exit("Error\n The arguments need to be \
+		smaller than INT_MAX\n");
 	return (result);
 }
 

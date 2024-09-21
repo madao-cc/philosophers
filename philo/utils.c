@@ -1,12 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mikelitoris <mikelitoris@student.42.fr>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/10 16:09:59 by mikelitoris       #+#    #+#             */
+/*   Updated: 2024/09/10 16:24:34 by mikelitoris      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 int	ft_usleep(size_t milisseconds)
 {
 	size_t	start;
+
 	start = get_current_time();
-	while((get_current_time() - start) < milisseconds)
+	while ((get_current_time() - start) < milisseconds)
 		usleep(1000);
-	return(0);
+	return (0);
 }
 
 size_t	get_current_time(void)
@@ -22,7 +35,8 @@ int	check_philo_died(t_philo *philo)
 {
 	if (philo->table->nbr_philos == 1)
 		return (0);
-	if (get_current_time() - philo->last_meal_time >= philo->table->time_to_die && check_philo_state(philo) != EATING)
+	if (get_current_time() - philo->last_meal_time >= \
+	philo->table->time_to_die && check_philo_state(philo) != EATING)
 	{
 		set_philo_state(philo, DEAD);
 		return (1);
@@ -30,59 +44,16 @@ int	check_philo_died(t_philo *philo)
 	return (0);
 }
 
-int	check_all_full(t_sim *table)
+bool	is_philo_full(t_philo *philo)
 {
-	int	i;
-	int	fat_counter;
-	t_philo	*philo;
-
-	i = 0;
-	fat_counter = 0;
-	if (table->goal_of_meals == -1)
-		return (0);
-	while (i < table->nbr_philos)
+	if (philo->table->goal_of_meals == -1)
+		return (false);
+	safe_mutex(&philo->mtx_meal_counter, LOCK);
+	if (philo->meal_counter >= philo->table->goal_of_meals)
 	{
-		philo = &table->philos[i];
-		safe_mutex(&table->philos[i].mtx_meal_counter, LOCK);
-		if (table->philos[i].meal_counter == table->goal_of_meals && check_philo_state(philo) != DEAD)
-			fat_counter++;
-		safe_mutex(&table->philos[i].mtx_meal_counter, UNLOCK);
-		i++;
+		safe_mutex(&philo->mtx_meal_counter, UNLOCK);
+		return (true);
 	}
-	if (fat_counter == table->nbr_philos)
-	{
-		handle_business(table);
-		return (1);
-	}
-	return (0);
-}
-
-void	print_message(char *str, t_philo *philo)
-{
-	long	time;
-
-	safe_mutex(&philo->table->write_lock, LOCK);
-	time = get_current_time();
-	if (philo->table->end_sim == false)
-		printf("%zu %d %s\n", (time - philo->table->start), philo->philo_id, str);
-	safe_mutex(&philo->table->write_lock, UNLOCK);
-}
-
-void	get_last_meal_time(t_philo *philo)
-{
-	safe_mutex(&philo->mtx_last_meal_time, LOCK);
-	philo->last_meal_time = get_current_time();
-	safe_mutex(&philo->mtx_last_meal_time, UNLOCK);
-}
-
-int	check_table_ok(t_sim *table)
-{
-	safe_mutex(&table->mtx_end_sim, LOCK);
-	if (table->end_sim == true)
-	{
-		safe_mutex(&table->mtx_end_sim, UNLOCK);
-		return (0);
-	}
-	safe_mutex(&table->mtx_end_sim, UNLOCK);
-	return (1);
+	safe_mutex(&philo->mtx_meal_counter, UNLOCK);
+	return (false);
 }

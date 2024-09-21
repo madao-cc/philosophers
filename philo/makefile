@@ -2,11 +2,14 @@
 NAME	=	philo
 
 # Compiler and CFlags
-CC		=	cc
+CC		=	cc -g
 CFLAGS		=	-Wall -Werror -Wextra 
 RM		=	rm -f
 THRDFLAG	=	-fsanitize=thread
 MEMRYFLAG	=	-fsanitize=address
+
+# Extras
+FT_PRINTF	=	./ft_printf/ft_printf_stder.a
 
 # Source files
 SRCS	=		philo.c			\
@@ -17,6 +20,8 @@ SRCS	=		philo.c			\
 			routine_actions.c	\
 			utils.c			\
 			thread_utils.c		\
+			monitor.c		\
+			utils_pt2.c		\
 
 # Object files
 OBJS	=	$(SRCS:.c=.o)
@@ -27,14 +32,19 @@ start:
 
 all:	$(NAME)
 
-$(NAME):	$(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+$(FT_PRINTF):
+	@make -C ./ft_printf
+
+$(NAME):	$(OBJS) $(FT_PRINTF)
+	$(CC) $(CFLAGS) $(OBJS) $(FT_PRINTF) -o $(NAME)
 
 clean:
 	rm -rf $(OBJS)
+	@make clean -C ./ft_printf
 
 fclean:		clean
 	rm -rf $(NAME)
+	@rm $(FT_PRINTF)
 
 re:	fclean all
 
