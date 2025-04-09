@@ -148,7 +148,3 @@ By completing this project, you gain:
 ## Acknowledgments
 
 The Philosophers project is part of the curriculum at 42 School, teaching core principles of concurrent programming, synchronization, and thread management in C.
-
----
-
-This README serves as both detailed documentation for external readers and a comprehensive personal reference to revisit essential concepts and implementations.
